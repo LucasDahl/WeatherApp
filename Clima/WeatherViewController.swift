@@ -5,6 +5,8 @@
 //  Created by Lucas Dahl 11/9/2018.
 //  Copyright (c) 2018 Lucas Dahl. All rights reserved.
 //
+// PODS USED Alamofire, SwiftyJSON, SVProgressHUD
+// MOst likely you will need to install your own PODS
 
 import UIKit
 import CoreLocation
@@ -20,6 +22,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
 
     // Declare instance variables here
     let locationManager = CLLocationManager()
+    let weatherDataModel = WeatherDataModel()
     
     //Outlets
     @IBOutlet weak var weatherIcon: UIImageView!
@@ -53,6 +56,11 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             response in
             if response.result.isSuccess {
                 print("Success! Got the weather data!")
+                
+                // Format the data
+                let weatherJSON:JSON = JSON(response.result.value!)
+                self.updateWeatherData(json: weatherJSON)
+                
             } else {
                 
                 print("Error \(response.result.error)")
@@ -63,26 +71,51 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    
-    
-    
-    
     //MARK: - JSON Parsing
     /***************************************************************/
-   
-    
+
     //Write the updateWeatherData method here:
-    
+    func updateWeatherData(json: JSON) {
+       
+        // Get the temp from the JSON file
+        if let tempResult = json["main"]["temp"].double {
+        
+        // Get the result from temp result and convert out of K and assiagin to the weatherDataModel object
+        weatherDataModel.temperature = Int(tempResult - 273.15)
+        
+        // Get the city name
+        weatherDataModel.city = json["name"].stringValue
+        
+        // Get the condition
+        weatherDataModel.condition = json["weather"][0]["id"].intValue
+        
+        // Get the weather icon to set
+        weatherDataModel.weatheIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
+            
+        // Update the UI
+        updateUIWithWeatherData()
+            
+        } else {
+            
+            cityLabel.text = "Weather Unavailable"
+            
+        }
+    }
 
     
     
     
     //MARK: - UI Updates
     /***************************************************************/
-    
-    
+
     //Write the updateUIWithWeatherData method here:
-    
+    func updateUIWithWeatherData() {
+        
+        cityLabel.text = weatherDataModel.city
+        temperatureLabel.text = String(weatherDataModel.temperature)
+        weatherIcon.image = UIImage(named: weatherDataModel.weatheIconName)
+        
+    }
     
     
     
@@ -102,6 +135,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             
             // Stop updating once a vaild result is found
             locationManager.stopUpdatingLocation()
+            locationManager.delegate = nil
             
             print("longitude = \(location.coordinate.longitude), latitude = \(location.coordinate.latitude)")
             
