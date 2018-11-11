@@ -23,6 +23,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, change
     // Properties
     let locationManager = CLLocationManager()
     let weatherDataModel = WeatherDataModel()
+    var tempConverted = 0.0
     
     // Outlets
     @IBOutlet weak var weatherIcon: UIImageView!
@@ -40,6 +41,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, change
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        // Set the temp label alpha to zero
+        temperatureLabel.alpha = 0
         
         
     }
@@ -63,8 +67,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, change
                 self.updateWeatherData(json: weatherJSON)
                 
             } else {
-                
-                print("Error: \(response.result.error)")
+            
                 self.cityLabel.text = "Connection Issues"
                 
             }
@@ -77,14 +80,16 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, change
 
     // UpdateWeatherData
     func updateWeatherData(json: JSON) {
-       
+        
         // Get the temp from the JSON file
         if let tempResult = json["main"]["temp"].double {
         
         // Get the result from temp result and convert out of K and assiagin to the weatherDataModel object
-    
-        weatherDataModel.temperature = Int(tempResult - 273.15)
-        
+        tempConverted = tempResult
+        weatherDataModel.temperature = Int(tempConverted - 273.15)
+        // Set the temp label alpha back to 1
+        temperatureLabel.alpha = 1
+
         // Get the city name
         weatherDataModel.city = json["name"].stringValue
         
@@ -190,6 +195,25 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, change
         }
         
     }
+    
+    
+    @IBAction func ferToCelSwitch(_ sender: UISwitch) {
+        
+        if ferToCel.isOn == true {
+            
+            weatherDataModel.temperature = Int(tempConverted - 273.15)
+            updateUIWithWeatherData()
+            
+            
+        } else {
+            
+            weatherDataModel.temperature = Int((tempConverted - 273.15) * 9/5 + 32)
+            updateUIWithWeatherData()
+            
+        }
+        
+    }
+    
     
 }// End class
 
