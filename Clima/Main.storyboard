@@ -82,16 +82,24 @@
                                     <action selector="ferToCelSwitch:" destination="vXZ-lx-hvc" eventType="valueChanged" id="YJv-8I-K34"/>
                                 </connections>
                             </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Switch Unit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Siw-Hf-Izu">
+                                <rect key="frame" x="27" y="115" width="100" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4RH-Qi-EBJ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="3l1-IY-dZc"/>
                             <constraint firstAttribute="bottom" secondItem="E0h-aX-oBb" secondAttribute="bottom" id="KSD-js-yHe"/>
+                            <constraint firstItem="Siw-Hf-Izu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="27" id="Ksy-ba-RZP"/>
                             <constraint firstItem="4RH-Qi-EBJ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="LKS-hH-U83"/>
                             <constraint firstItem="th1-Kr-XgW" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="OCL-NQ-UMw"/>
                             <constraint firstItem="E0h-aX-oBb" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="QE8-ZH-A9D"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="VNR-V6-HMc" secondAttribute="bottom" constant="20" id="Z6J-2F-fG1"/>
                             <constraint firstItem="E0h-aX-oBb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="gV7-tf-DoM"/>
+                            <constraint firstItem="Siw-Hf-Izu" firstAttribute="top" secondItem="4RH-Qi-EBJ" secondAttribute="bottom" constant="20" id="ixF-6v-Uqx"/>
                             <constraint firstItem="VNR-V6-HMc" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="l5f-UK-c3f"/>
                             <constraint firstItem="th1-Kr-XgW" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="mHS-yD-ZBh"/>
                             <constraint firstAttribute="trailing" secondItem="VNR-V6-HMc" secondAttribute="trailing" id="nWN-M1-3ds"/>
